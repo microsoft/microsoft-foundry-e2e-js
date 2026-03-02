@@ -205,3 +205,36 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Node.js / JavaScript / TypeScript
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build outputs
+dist/
+out/
+.next/
+.nuxt/
+.cache/
+*.tsbuildinfo
+
+# Runtime / coverage
+coverage/
+*.lcov
+.nyc_output/
+
+# Env files
+.env.local
+.env.*.local
+
+# Package manager locks (keep one — uncomment if not using npm)
+# yarn.lock
+# pnpm-lock.yaml
+
+# OS artifacts
+.DS_Store
+Thumbs.db
