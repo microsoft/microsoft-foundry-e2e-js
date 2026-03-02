@@ -55,7 +55,7 @@ The Microsoft Foundry platform provides a unified API that can be accessed in mu
 
 In _this_ quest, we'll focus on the first two clients (UI and SDK) and explore the following capabilities: _Models, Agents, Evaluation, Tracng, Fine-Tuning_ - at a high level, to build your intuition for e2e workflows.
 
-![API](./../microsoft-foundry-e2e-js/docs/assets/01/7-Foundry-API-SDK.png)
+![API](./docs/assets/01/7-Foundry-API-SDK.png)
 
 
 <br/>
