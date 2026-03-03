@@ -18,7 +18,7 @@
  */
 
 import { AIProjectClient } from "@azure/ai-projects";
-import { DefaultAzureCredential } from "@azure/identity";
+import { AzureCliCredential } from "@azure/identity";
 import {
   CognitiveServicesManagementClient,
   type Deployment,
@@ -62,7 +62,7 @@ const accountName =
 export async function main(): Promise<void> {
   const project = new AIProjectClient(
     projectEndpoint,
-    new DefaultAzureCredential(),
+    new AzureCliCredential(),
   );
   const openAIClient = await project.getOpenAIClient();
 
@@ -152,7 +152,7 @@ export async function main(): Promise<void> {
       };
 
       const cognitiveClient = new CognitiveServicesManagementClient(
-        new DefaultAzureCredential(),
+        new AzureCliCredential(),
         subscriptionId,
       );
       await cognitiveClient.deployments.beginCreateOrUpdate(

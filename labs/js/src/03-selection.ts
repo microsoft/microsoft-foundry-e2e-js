@@ -19,7 +19,7 @@
 
 import type { ModelDeployment } from "@azure/ai-projects";
 import { AIProjectClient } from "@azure/ai-projects";
-import { DefaultAzureCredential } from "@azure/identity";
+import { AzureCliCredential } from "@azure/identity";
 import "dotenv/config";
 
 const projectEndpoint =
@@ -30,7 +30,7 @@ const deploymentName =
 export async function main(): Promise<void> {
   const project = new AIProjectClient(
     projectEndpoint,
-    new DefaultAzureCredential(),
+    new AzureCliCredential(),
   );
 
   // 1. List all model deployments (may fail on newly created projects)

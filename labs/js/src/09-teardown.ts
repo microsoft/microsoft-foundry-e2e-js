@@ -14,7 +14,7 @@
  */
 
 import { AIProjectClient } from "@azure/ai-projects";
-import { DefaultAzureCredential } from "@azure/identity";
+import { AzureCliCredential } from "@azure/identity";
 import "dotenv/config";
 
 const projectEndpoint =
@@ -25,7 +25,7 @@ const AGENT_NAME = "cora-zava-diy";
 export async function main(): Promise<void> {
   const project = new AIProjectClient(
     projectEndpoint,
-    new DefaultAzureCredential(),
+    new AzureCliCredential(),
   );
 
   console.log("🧹 Tearing down Quest 2 resources…\n");

@@ -3,9 +3,7 @@
 # Quest 2 — Environment Setup Script
 #
 # This script automates .env configuration for the workshop labs (JS & Python).
-# It can either:
-#   (A) Create a new Foundry project with all required resources, OR
-#   (B) Populate .env from an existing resource group
+# It populates .env from an existing Foundry resource group.
 #
 # Prerequisites: Azure CLI (az) installed and logged in.
 #
@@ -35,7 +33,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
 JS_DIR="$REPO_ROOT/labs/js"
-PY_DIR="$REPO_ROOT/labs/py"
 
 # ── Step 0: Check Azure CLI login ──────────────────────────────────────────
 echo ""
@@ -65,177 +62,19 @@ ok "Logged in as: $ACCOUNT_NAME"
 ok "Subscription: $SUBSCRIPTION_NAME ($SUBSCRIPTION_ID)"
 echo ""
 
-# ── Step 1: Choose mode ────────────────────────────────────────────────────
-echo "How would you like to set up?"
+# ── Step 1: Get existing resource group ───────────────────────────────────
 echo ""
-echo "  (A) Create NEW Foundry project with all resources"
-echo "  (B) Use EXISTING resource group (already have a Foundry project)"
-echo ""
-read -rp "Choose [A/B]: " SETUP_MODE
-SETUP_MODE="${SETUP_MODE^^}"
-
-if [[ "$SETUP_MODE" != "A" && "$SETUP_MODE" != "B" ]]; then
-  err "Invalid choice. Please run again and choose A or B."
+read -rp "Existing resource group name: " RESOURCE_GROUP
+if [[ -z "$RESOURCE_GROUP" ]]; then
+  err "Resource group name is required."
 fi
 
-# ── Common: Collect location ────────────────────────────────────────────────
-echo ""
-read -rp "Azure region (e.g., swedencentral, eastus2) [swedencentral]: " LOCATION
-LOCATION="${LOCATION:-swedencentral}"
-
-# ── Mode A: Create everything ──────────────────────────────────────────────
-if [[ "$SETUP_MODE" == "A" ]]; then
-  echo ""
-  info "Creating new Foundry project with all resources…"
-  echo ""
-
-  read -rp "Resource group name [quest2-rg]: " RESOURCE_GROUP
-  RESOURCE_GROUP="${RESOURCE_GROUP:-quest2-rg}"
-
-  read -rp "AI Services account name [quest2-ai]: " AI_ACCOUNT_NAME
-  AI_ACCOUNT_NAME="${AI_ACCOUNT_NAME:-quest2-ai}"
-
-  read -rp "Application Insights name [quest2-appinsights]: " APPINSIGHTS_NAME
-  APPINSIGHTS_NAME="${APPINSIGHTS_NAME:-quest2-appinsights}"
-
-  # Create resource group
-  info "Creating resource group: $RESOURCE_GROUP in $LOCATION…"
-  az group create \
-    --name "$RESOURCE_GROUP" \
-    --location "$LOCATION" \
-    --output none
-  ok "Resource group created."
-
-  # Create AI Services account (Foundry resource) with project management enabled
-  # Ref: https://learn.microsoft.com/azure/ai-foundry/tutorials/quickstart-create-foundry-resources
-  info "Creating AI Services account: $AI_ACCOUNT_NAME…"
-  az cognitiveservices account create \
-    --name "$AI_ACCOUNT_NAME" \
-    --resource-group "$RESOURCE_GROUP" \
-    --kind "AIServices" \
-    --sku "S0" \
-    --location "$LOCATION" \
-    --custom-domain "$AI_ACCOUNT_NAME" \
-    --allow-project-management \
-    --output none
-  ok "AI Services account created (with project management + custom subdomain)."
-
-  # Create Application Insights
-  info "Creating Application Insights: $APPINSIGHTS_NAME…"
-  az monitor app-insights component create \
-    --app "$APPINSIGHTS_NAME" \
-    --location "$LOCATION" \
-    --resource-group "$RESOURCE_GROUP" \
-    --output none
-  ok "Application Insights created."
-
-  # Deploy gpt-4.1 model
-  info "Deploying gpt-4.1 model…"
-  az cognitiveservices account deployment create \
-    --name "$AI_ACCOUNT_NAME" \
-    --resource-group "$RESOURCE_GROUP" \
-    --deployment-name "gpt-4.1" \
-    --model-name "gpt-4.1" \
-    --model-version "2025-04-14" \
-    --model-format "OpenAI" \
-    --sku-capacity 10 \
-    --sku-name "GlobalStandard" \
-    --output none 2>/dev/null || warn "gpt-4.1 deployment may already exist or model not available in $LOCATION."
-  ok "gpt-4.1 deployment done."
-
-  # Deploy gpt-4.1-mini model
-  info "Deploying gpt-4.1-mini model…"
-  az cognitiveservices account deployment create \
-    --name "$AI_ACCOUNT_NAME" \
-    --resource-group "$RESOURCE_GROUP" \
-    --deployment-name "gpt-4.1-mini" \
-    --model-name "gpt-4.1-mini" \
-    --model-version "2025-04-14" \
-    --model-format "OpenAI" \
-    --sku-capacity 10 \
-    --sku-name "GlobalStandard" \
-    --output none 2>/dev/null || warn "gpt-4.1-mini deployment may already exist or model not available in $LOCATION."
-  ok "gpt-4.1-mini deployment done."
-
-  # ── Create Foundry project via Portal ──────────────────────────────
-  # CLI-created projects are not registered on the Foundry data plane.
-  # The project MUST be created through the Foundry Portal for the SDK to work.
-  echo ""
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo "  📌 Create your Foundry project in the Portal"
-  echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-  echo ""
-  echo "  1. Open https://ai.azure.com"
-  echo "  2. Click '+ Create project'"
-  echo "  3. Select the AI Services account: $AI_ACCOUNT_NAME"
-  echo "  4. Name your project and click 'Create'"
-  echo "  5. Copy the project endpoint from the project Overview page"
-  echo ""
-  read -rp "Paste your project endpoint here: " PROJECT_ENDPOINT
-  if [[ -z "$PROJECT_ENDPOINT" ]]; then
-    warn "No endpoint provided. You'll need to update .env manually later."
-  else
-    ok "Project endpoint: $PROJECT_ENDPOINT"
-  fi
-
-  # Assign RBAC roles so the learner can use all Foundry features with Entra ID auth
-  info "Assigning RBAC roles…"
-  USER_OBJECT_ID=$(az ad signed-in-user show --query "id" -o tsv 2>/dev/null || echo "")
-  RESOURCE_ID=$(az cognitiveservices account show \
-    --name "$AI_ACCOUNT_NAME" \
-    --resource-group "$RESOURCE_GROUP" \
-    --query "id" -o tsv 2>/dev/null || echo "")
-
-  if [[ -n "$USER_OBJECT_ID" && -n "$RESOURCE_ID" ]]; then
-    # Azure AI User — required for data-plane access (agents, evals, deployments)
-    az role assignment create \
-      --role "Azure AI User" \
-      --assignee-object-id "$USER_OBJECT_ID" \
-      --assignee-principal-type "User" \
-      --scope "$RESOURCE_ID" \
-      --output none 2>/dev/null || true
-    ok "Assigned 'Azure AI User' on Foundry resource."
-
-    # Cognitive Services OpenAI User — required for model inference via OpenAI client
-    az role assignment create \
-      --role "Cognitive Services OpenAI User" \
-      --assignee-object-id "$USER_OBJECT_ID" \
-      --assignee-principal-type "User" \
-      --scope "$RESOURCE_ID" \
-      --output none 2>/dev/null || true
-    ok "Assigned 'Cognitive Services OpenAI User' on Foundry resource."
-
-    # Cognitive Services Contributor — required for fine-tuning and resource management
-    az role assignment create \
-      --role "Cognitive Services Contributor" \
-      --assignee-object-id "$USER_OBJECT_ID" \
-      --assignee-principal-type "User" \
-      --scope "$RESOURCE_ID" \
-      --output none 2>/dev/null || true
-    ok "Assigned 'Cognitive Services Contributor' on Foundry resource."
-  else
-    warn "Could not determine user or resource ID — assign roles manually in Azure Portal → IAM."
-  fi
-
-  echo ""
-  ok "All resources created! Now retrieving configuration…"
-  echo ""
-
-# ── Mode B: Use existing resource group ────────────────────────────────────
-else
-  echo ""
-  read -rp "Existing resource group name: " RESOURCE_GROUP
-  if [[ -z "$RESOURCE_GROUP" ]]; then
-    err "Resource group name is required."
-  fi
-
-  # Verify resource group exists
-  if ! az group show --name "$RESOURCE_GROUP" &> /dev/null; then
-    err "Resource group '$RESOURCE_GROUP' not found in subscription."
-  fi
-  ok "Resource group '$RESOURCE_GROUP' found."
-  echo ""
+# Verify resource group exists
+if ! az group show --name "$RESOURCE_GROUP" &> /dev/null; then
+  err "Resource group '$RESOURCE_GROUP' not found in subscription."
 fi
+ok "Resource group '$RESOURCE_GROUP' found."
+echo ""
 
 # ── Step 2: Retrieve all configuration values ──────────────────────────────
 info "Retrieving configuration from resource group: $RESOURCE_GROUP…"
@@ -400,9 +239,6 @@ write_env_file() {
 # Write JS .env
 write_env_file "$JS_DIR" "TypeScript"
 
-# Write Python .env
-write_env_file "$PY_DIR" "Python"
-
 # ── Step 4: Summary ────────────────────────────────────────────────────────
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -420,7 +256,6 @@ echo "  App Insights:      ${APPINSIGHTS_CONN:+✓ Set}${APPINSIGHTS_CONN:-⚠�
 echo ""
 echo "  .env files:"
 [[ -f "$JS_DIR/.env" ]] && echo "    ✅ $JS_DIR/.env"
-[[ -f "$PY_DIR/.env" ]] && echo "    ✅ $PY_DIR/.env"
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "  🎉 Setup complete! You're ready to start the quest."

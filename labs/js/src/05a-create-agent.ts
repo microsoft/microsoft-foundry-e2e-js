@@ -15,7 +15,7 @@
  */
 
 import { AIProjectClient } from "@azure/ai-projects";
-import { DefaultAzureCredential } from "@azure/identity";
+import { AzureCliCredential } from "@azure/identity";
 import { toolDefinitions } from "./05c-tools";
 import "dotenv/config";
 
@@ -52,7 +52,7 @@ const CORA_INSTRUCTIONS = `You are Cora, the friendly and knowledgeable AI custo
 export async function main(): Promise<void> {
   const project = new AIProjectClient(
     projectEndpoint,
-    new DefaultAzureCredential(),
+    new AzureCliCredential(),
   );
 
   console.log("🤖 Creating Cora agent…");

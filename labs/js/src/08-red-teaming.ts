@@ -21,7 +21,7 @@
  */
 
 import { AIProjectClient } from "@azure/ai-projects";
-import { DefaultAzureCredential } from "@azure/identity";
+import { AzureCliCredential } from "@azure/identity";
 import * as fs from "node:fs/promises";
 import * as path from "path";
 import "dotenv/config";
@@ -60,7 +60,7 @@ export async function main(): Promise<void> {
   // SDK beta.5 defaults to api-version "v1" but beta operations require a preview version.
   const project = new AIProjectClient(
     projectEndpoint,
-    new DefaultAzureCredential(),
+    new AzureCliCredential(),
     { apiVersion: "2025-11-15-preview" } as any,
   );
   const openAIClient = project.getOpenAIClient();

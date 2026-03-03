@@ -48,7 +48,7 @@ useAzureMonitor(options);
 
 import { trace, SpanStatusCode } from "@opentelemetry/api";
 import { AIProjectClient } from "@azure/ai-projects";
-import { DefaultAzureCredential } from "@azure/identity";
+import { AzureCliCredential } from "@azure/identity";
 
 const projectEndpoint =
   process.env["AZURE_AI_PROJECT_ENDPOINT"] || "<project endpoint>";
@@ -59,7 +59,7 @@ export async function main(): Promise<void> {
   const tracer = trace.getTracer("cora-zava-diy", "1.0.0");
   const project = new AIProjectClient(
     projectEndpoint,
-    new DefaultAzureCredential(),
+    new AzureCliCredential(),
   );
 
   console.log("📡 Tracing enabled — sending telemetry to Application Insights…\n");

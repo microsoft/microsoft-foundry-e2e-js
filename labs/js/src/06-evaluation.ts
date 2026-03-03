@@ -15,7 +15,7 @@
  */
 
 import { AIProjectClient } from "@azure/ai-projects";
-import { DefaultAzureCredential } from "@azure/identity";
+import { AzureCliCredential } from "@azure/identity";
 import * as fs from "fs";
 import * as path from "path";
 import "dotenv/config";
@@ -28,7 +28,7 @@ const deploymentName =
 export async function main(): Promise<void> {
   const project = new AIProjectClient(
     projectEndpoint,
-    new DefaultAzureCredential(),
+    new AzureCliCredential(),
   );
   const openAIClient = await project.getOpenAIClient();
 

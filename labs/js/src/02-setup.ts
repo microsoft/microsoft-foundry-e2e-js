@@ -16,7 +16,7 @@
  */
 
 import { AIProjectClient } from "@azure/ai-projects";
-import { DefaultAzureCredential } from "@azure/identity";
+import { AzureCliCredential } from "@azure/identity";
 import "dotenv/config";
 
 export async function main(): Promise<void> {
@@ -69,7 +69,7 @@ export async function main(): Promise<void> {
   console.log(`   Endpoint: ${projectEndpoint}`);
   const project = new AIProjectClient(
     projectEndpoint,
-    new DefaultAzureCredential(),
+    new AzureCliCredential(),
   );
 
   // 3. Test inference with a simple prompt

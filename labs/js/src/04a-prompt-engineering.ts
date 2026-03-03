@@ -14,7 +14,7 @@
  */
 
 import { AIProjectClient } from "@azure/ai-projects";
-import { DefaultAzureCredential } from "@azure/identity";
+import { AzureCliCredential } from "@azure/identity";
 import "dotenv/config";
 
 const projectEndpoint =
@@ -52,7 +52,7 @@ const testQuestions = [
 export async function main(): Promise<void> {
   const project = new AIProjectClient(
     projectEndpoint,
-    new DefaultAzureCredential(),
+    new AzureCliCredential(),
   );
   const openAIClient = await project.getOpenAIClient();
 
