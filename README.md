@@ -63,7 +63,29 @@ In this quest we focus on (1) and (2) - and you'll get to explore (3) in a futur
 
 ## Getting Started
 
-Click on [SETUP.md](./SETUP.md) and follow instructions to fork the repo, launch GitHub Codespaces, setup a Microsoft Foundry project - then complete coding tasks with the Microsoft Foundry SDK.
+_By now you should have launched the GitHub Codespaces session on this repo. If you have NOT done this, click below to expand the section for instructions_.
+
+<details>
+<summary> <b> 👉🏽 INSTRUCTIONS TO LAUNCH GITHUB CODESPACES!</b></summary><br/>
+
+
+**First, let's fork the repo**.
+
+1. Open a new browser tab to [Github](https://github.com) - and login.
+1. [Use this link](https://github.com/microsoft/microsoft-foundry-e2e-js/fork) - and fork the repo to your profile.
+1. Open this forked repo in a new browser tab
+
+**Now, launch GitHub Codespaces**.
+
+1. Click the blue **Code** button - then switch to the **Codespaces** tab.
+1. Click **Create codespace** - this opens a new browser tab.
+1. You will see a VS Code editor - wait till it loads completely.
+
+</details>
+
+<br/>
+
+You can now visit the [SETUP.md](./SETUP.md) page to authenticate with Azure and setup a Microsoft Foundry project - then complete coding tasks with the Microsoft Foundry SDK.
 
 <br/>
 

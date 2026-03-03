@@ -1,26 +1,12 @@
 # Getting Started
 
-_For this quest, you will fork this repository, then launch a GitHub Codespaces session on your fork, in the browser, to complete the tasks_. 
+_This repository is configured with a `devcontainer.json` that provides all the dependencies out of the box. By now, you should have launched GitHub Codespaces and have a VS Code editor in the browser. Now it's time to setup the development environment_.
 
 <br/>
 
-## 1. Launch GitHub Codespaces
+## 1. Authenticate With Azure
 
-_This repository is configured with a `devcontainer.json` that provides all the dependencies out of the box. Just activate it using GitHub Codespaces for a fast start_.
 
-**First, let's fork the repo**.
-
-1. Open a new browser tab to [Github](https://github.com) - and login.
-1. [Use this link](https://github.com/microsoft/microsoft-foundry-e2e-js/fork) - and fork the repo to your profile.
-1. Open this forked repo in a new browser tab
-
-**Next, launch GitHub Codespaces**.
-
-1. Click the blue **Code** button - then switch to the **Codespaces** tab.
-1. Click **Create codespace** - this opens a new browser tab.
-1. You will see a VS Code editor - wait till it loads completely.
-
-**Finally, authenticate with Azure**.
 
 1. Wait for VS Code terminal prompt to become active
 1. Type `az login` - you see a  _device code_ workflow.
