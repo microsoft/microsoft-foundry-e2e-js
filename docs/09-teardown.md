@@ -1,55 +1,55 @@
 # 9. Tear It Down
 
-You've completed the full developer journey! Before you go, let's clean up the Azure resources created during this quest to avoid unnecessary charges.
+You've completed the full developer journey! Before you go, let's clean up the Azure resources created during this quest to avoid unnecessary charges. _You should also shutdown and delete the Codespaces session, to ensure your quota is not depleted_.
 
 ## Learning Objectives
 
 - Identify all resources created during the quest.
-- Clean up agents, deployments, and project resources.
-- Understand what to keep vs. what to delete.
+- Clean up the Azure resources
+- Clean up and Codespaces environment
 
 ## What Was Created
 
-During this quest, you created:
+During this quest, you created a Foundry project, deployed models, fine-tuned a model, and ran evaluation and red-teaming scans. Now it's time to clean up resources to avoid unanticipated charges beyond this quest.
 
-| Resource | Task | Clean Up |
-|---|---|---|
-| Foundry Project | Task 2 | Keep or delete |
-| gpt-4.1 deployment | Task 3 | Delete if not needed |
-| Fine-tuned model | Task 4 (optional) | Delete if not needed |
-| Cora agent versions | Task 5 | Auto-cleaned by script |
-| Evaluation runs | Task 6 | Auto-cleaned by script |
-| Telemetry data | Task 7 | Retained in App Insights |
-| Red Team scans | Task 8 | Retained for reference |
+## Clean Up Azure Resources
 
-## Hands-On Steps
+Follow the [Microsoft Portal guidance](https://learn.microsoft.com/en-us/azure/foundry/tutorials/quickstart-create-foundry-resources?tabs=azurecli#clean-up-resources) to delete all resources associated with this project using one of these options.
 
-### Step 1 — Run the Teardown Script
+1. **Use the Azure CLI**
 
-```bash
-npm run build
-node dist/09-teardown.js
-```
+    ```bash
+    az group delete --name <your-project-name> --yes --no-wait
+    ```
 
-This deletes agent versions and lists remaining resources that need manual cleanup.
+2. **Use the Foundry Portal**
 
-### Step 2 — Manual Cleanup (Portal)
+    1. Visit [https://portal.azure.com](https://portal.azure.com) and login with your Azure subscription.
+    1. Click on the **Resource Groups** option on the landing page 
+    1. Locate the resource group you created - and click to visit it. 
+    1. Look for the *Delete resource group** option - see below
+    1. Click and confirm - the deletion should take a few minutes.
 
-For resources that can't be deleted via SDK:
+    ![Delete](./assets/00/00-delete-rg.png)
 
-1. **Model deployments** — Foundry Portal → Models + endpoints → Delete each deployment.
-2. **Foundry project** — Azure Portal → Resource groups → Delete the resource group.
-3. **Application Insights** — Delete if no longer needed.
 
-> 🔗 See [labs/ui/09-teardown.md](../labs/ui/09-teardown.md) for the portal walkthrough.
+## Clean Up Codespaces
+
+_Note: If you used the option that forked the repo before starting a Codespaces, you may want to take a minute to save your changes to your fork first._.
+
+1. If you are currently in the codespace, click the green button (bottom left with "Codespaces:" name) - and the **Stop Current Codespace**. _Note the name used here_.
+1. Then go to [your GitHub Codespaces](https://github.com/codespaces) setting in a new tab. This will list all the codespaces (active and stopped) in your account.
+1. Find the codespace name from step 1 - click the three dots at the end - and select **Delete** from the dropdown menu.
+
+_Note that this deletes the Codespace completely and releases all resources._.
 
 ## Checkpoint
 
 ✅ Verify cleanup:
 
-- [ ] Agent versions deleted
-- [ ] Model deployments removed (or kept intentionally)
-- [ ] No unexpected charges in your Azure subscription
+- [ ] Visit the [Azure Portal](https://ai.azure.com) - ensure the resource group is deleted
+- [ ] Visit the [Foundry Portal](https://ai.azure.com) - your project should no longer be listed
+- [ ] Visit the [GitHub Codespaces](https://github.com/codespaces) - your codespace should not be listed
 
 ## 🎉 Congratulations!
 
