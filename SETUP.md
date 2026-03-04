@@ -1,12 +1,17 @@
 # Getting Started
 
-_This repository is configured with a `devcontainer.json` that provides all the dependencies out of the box. By now, you should have launched GitHub Codespaces and have a VS Code editor in the browser. Now it's time to setup the development environment_.
+_The repository was setup for the [2026 JSBuildathon](https://developer.microsoft.com/en-us/reactor/events/26773/) and showcases the Microsoft Foundry UI and SDK for JS/TS developers. These are evolving rapidly, so you may encounter some breaking changes. If you do, please [file an issue](https://github.com/microsoft/microsoft-foundry-e2e-js/issues/new) and let us know._
+
+![Costs](./docs/assets/costs-notice.png)
+
+> [!IMPORTANT]
+> After the livestream we will make a step-by-step walkthrough of the quest available that you can use to review the concepts without actually executing the tasks. This will give you an option to get familiar with the end-to-end development journey without having to use your Azure subscription (incur costs) if useful.
 
 <br/>
 
 ## 1. Authenticate With Azure
 
-
+_This repository is configured with a `devcontainer.json` that provides all the dependencies out of the box. By now, you should have launched GitHub Codespaces and have a VS Code editor in the browser. Now it's time to setup the development environment_.
 
 1. Wait for VS Code terminal prompt to become active
 1. Type `az login` - you see a  _device code_ workflow.

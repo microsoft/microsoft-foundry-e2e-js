@@ -2,8 +2,10 @@
 
 _The repository was setup for the [2026 JSBuildathon](https://developer.microsoft.com/en-us/reactor/events/26773/) and showcases the Microsoft Foundry UI and SDK for JS/TS developers. These are evolving rapidly, so you may encounter some breaking changes. If you do, please [file an issue](https://github.com/microsoft/microsoft-foundry-e2e-js/issues/new) and let us know._
 
+![Costs](./docs/assets/costs-notice.png)
+
 > [!IMPORTANT]
-> This quest has tasks for fine-tuning, red-teaming and evaluations that can incur non-trivial costs and time to complete on your own. In these cases, we have provided a _read-only_ version of the task where you can explore the code and execution results from a previous run, to familiarize yourself with the concept and workflow. You should be able to run the code if you choose to - but just be aware of the potential costs and remember to clean up the project to avoid additional charges.
+> After the livestream we will make a step-by-step walkthrough of the quest available that you can use to review the concepts without actually executing the tasks. This will give you an option to get familiar with the end-to-end development journey without having to use your Azure subscription (incur costs) if useful.
 
 <br/>
 
