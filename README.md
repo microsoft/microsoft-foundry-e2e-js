@@ -65,6 +65,15 @@ In this quest we focus on (1) and (2) - and you'll get to explore (3) in a futur
 
 ## Getting Started
 
+> [!NOTE]
+>
+> The Foundry SDK is under active development. 
+>
+> If you encounter any blockers, unclear steps, or have suggestions to improve the developer experience, please open an issue using the [provided issue template](https://github.com/microsoft/microsoft-foundry-e2e-js/issues/new/choose) - *Bug report/ Build-a-thon Feedback*. Make sure to **apply the label** that matches the step you were on when the issue occurred.
+>
+> ![Buildathon issue with labels](./docs/assets/buildathon-feedback.png)
+
+
 _By now you should have launched the GitHub Codespaces session on this repo. If you have NOT done this, click below to expand the section for instructions_.
 
 <details>
