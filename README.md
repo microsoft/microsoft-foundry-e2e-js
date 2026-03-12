@@ -1,6 +1,6 @@
 # Building AI Agents E2E On Microsoft Foundry
 
-_The repository was setup for the [2026 JSBuildathon](https://developer.microsoft.com/en-us/reactor/events/26773/) and showcases the Microsoft Foundry UI and SDK for JS/TS developers. These are evolving rapidly, so you may encounter some breaking changes. If you do, please [file an issue](https://github.com/microsoft/microsoft-foundry-e2e-js/issues/new) and let us know._
+_The repository was setup for the [2026 JSBuildathon](https://aka.ms/JSAIBuildathon) and showcases the Microsoft Foundry UI and SDK for JS/TS developers. These are evolving rapidly, so you may encounter some breaking changes. If you do, please [file an issue](https://github.com/microsoft/microsoft-foundry-e2e-js/issues/new) and let us know._
 
 ![Costs](./docs/assets/costs-notice.png)
 
@@ -50,11 +50,11 @@ You need to go from _planning_ ("I have product data") to _prototype_ ("I have a
 
 ## How We'll Build It
 
-The Microsoft Foundry platform provides all the tools and capabilities (e.g., _Models, Agents, Evaluation, Tracng, Fine-Tuning_) that you need to build this solution end-to-end. And, it provides a _unified API_ as shown below, allowing you to access these features in multiple ways:
+The Microsoft Foundry platform provides all the tools and capabilities (e.g., _Models, Agents, Evaluation, Tracing, Fine-Tuning_) that you need to build this solution end-to-end. And, it provides a _unified API_ as shown below, allowing you to access these features in multiple ways:
 
 1. **Foundry portal** - for a UI-first low-code solution in the browser.
 1. **Foundry SDK** - for a code-first solution using your favorite IDE.
-1. **AI Toolkit** - for an VSCode-first experience that combines both.
+1. **AI Toolkit** - for a VS Code-first experience that combines both.
 
 In this quest we focus on (1) and (2) - and you'll get to explore (3) in a future quest in this series.
 
@@ -64,6 +64,15 @@ In this quest we focus on (1) and (2) - and you'll get to explore (3) in a futur
 <br/>
 
 ## Getting Started
+
+> [!NOTE]
+>
+> The Foundry SDK is under active development. 
+>
+> If you encounter any blockers, unclear steps, or have suggestions to improve the developer experience, please open an issue using the [provided issue template](https://github.com/microsoft/microsoft-foundry-e2e-js/issues/new/choose) - *Bug report/ Build-a-thon Feedback*. Make sure to **apply the label** that matches the step you were on when the issue occurred.
+>
+> ![Buildathon issue with labels](./docs/assets/buildathon-feedback.png)
+
 
 _By now you should have launched the GitHub Codespaces session on this repo. If you have NOT done this, click below to expand the section for instructions_.
 
@@ -107,3 +116,7 @@ Use this repository as a sandbox to explore these ideas in more depth:
 1. Fine-tune your base model for a new behavior - what worked or didn't?
 
 Remember that Microsoft Foundry provides a unified API that you can access via the Foundry Portal (UI-first, low-code) or Foundry SDK (code-first, language specific). Once you complete this quest, take a minute to explore the _Discover_, _Build_ and _Operate_ tabs in the portal, and build your intuition for what each does - and the additional features or tools you can unlock for your AI development.
+
+## Return to the Build-a-thon
+
+Once you have completed this quest and get an intuitive sense for end-to-end development with Microsoft Foundry, [return to the main Build-a-thon repository](https://github.com/Azure-Samples/JavaScript-AI-Buildathon) to continue with the next quests.
